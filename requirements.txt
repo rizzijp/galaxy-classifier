@@ -1,0 +1,10 @@
+flask
+flask-sqlalchemy
+psycopg2-binary
+gunicorn
+numpy
+pillow
+huggingface_hub
+python-dotenv
+tensorflow-cpu  
+# NOTA: Si usa scikit-learn, cambia 'tensorflow-cpu' por 'scikit-learn'
