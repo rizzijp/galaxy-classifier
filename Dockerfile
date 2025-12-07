@@ -15,5 +15,5 @@ COPY . .
 # Exponer puerto interno
 EXPOSE 10000
 
-# Arrancar Flask con Gunicorn
-CMD ["gunicorn", "src.api.app:app", "--bind", "0.0.0.0:10000"]
+# Arrancar Flask con Gunicorn (Añadimos timeout y limitamos workers):
+CMD ["gunicorn", "src.api.app:app", "--bind", "0.0.0.0:10000", "--workers", "1", "--threads", "1", "--timeout", "120"]

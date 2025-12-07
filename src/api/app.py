@@ -100,7 +100,7 @@ def preprocess_image(image_bytes):
     try:
         img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
         img = img.resize((224, 224))
-        arr = np.array(img) / 255.0
+        #arr = np.array(img) / 255.0
 
         # LOG DE DIAGNÓSTICO
         print(f"🔍 [DEBUG IMG] Shape: {arr.shape} | Min: {arr.min():.4f} | Max: {arr.max():.4f}")
