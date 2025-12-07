@@ -1,0 +1,12 @@
+flask
+flask-sqlalchemy
+psycopg2-binary
+gunicorn
+numpy
+pillow
+huggingface_hub
+python-dotenv
+scikit-learn
+tensorflow
+streamlit
+requests
