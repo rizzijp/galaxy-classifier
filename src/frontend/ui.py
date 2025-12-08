@@ -4,11 +4,13 @@ import pandas as pd
 from PIL import Image
 import os
 
+# Obtener la ruta absoluta del directorio donde está ESTE archivo (ui.py)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Construir la ruta a la imagen uniendo las partes
+image_path = os.path.join(current_dir, "assets", "galaxy.jpg")
+
 # Leer variable de entorno, si no existe usa localhost (para pruebas sin docker)
 API_URL = os.getenv("API_URL", "http://localhost:5000")
-
-
-
 #API_URL = "https://galaxy-classifier-api.onrender.com" # Para pruebas en local
 
 
@@ -16,7 +18,7 @@ API_URL = os.getenv("API_URL", "http://localhost:5000")
 # --------------------------
 # BANNER
 # --------------------------
-banner = Image.open("assets/galaxy.jpg")
+banner = Image.open(image_path)
 st.image(
     banner,
     use_container_width=True
