@@ -196,6 +196,26 @@ def get_prediction_by_id(pred_id):
         "confidence": p.confidence
     })
 
+# ENDPOINT: PREDICCIÓN POR FILENAME
+
+@app.route("/predictions/filename", methods=["GET"])
+def get_by_filename():
+    filename = request.args.get("filename", "").strip()
+
+    if not filename:
+        return jsonify({"error": "filename requerido"}), 400
+
+    # Case-insensitive + parcial:
+    results = (
+        Prediction.query
+        .filter(Prediction.filename.ilike(f"%{filename}%"))
+        .all()
+    )
+
+    if not results:
+        return jsonify({"error": "Archivo no encontrado"}), 404
+
+    return jsonify([r.to_dict() for r in results]), 200
 
 # ENDPOINT: BORRAR TABLA
 
@@ -207,15 +227,12 @@ def delete_all():
 
 # ENDPOINT: RESETEAR BASE DE DATOS
 
-@app.route("/reset_db", methods=["POST"])
-def reset_db():
-    try:
-        db.drop_all()
-        db.create_all()
-        return jsonify({"status": "ok", "message": "Database reset done"}), 200
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)}), 500
-
+@app.route("/predictions/delete", methods=["DELETE"])
+def delete_all_predictions():
+    from sqlalchemy import text
+    db.session.execute(text("TRUNCATE TABLE predictions RESTART IDENTITY CASCADE;"))
+    db.session.commit()
+    return jsonify({"status": "ok", "message": "Tabla reseteada y IDs reiniciados"}), 200
 
 
 if __name__ == "__main__":
