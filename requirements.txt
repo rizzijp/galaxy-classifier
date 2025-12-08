@@ -1,0 +1,11 @@
+flask
+flask-sqlalchemy
+psycopg2-binary
+gunicorn
+numpy
+pillow
+python-dotenv
+tensorflow-cpu==2.15.0
+streamlit
+requests
+flask-cors
