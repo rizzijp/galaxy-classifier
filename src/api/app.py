@@ -140,7 +140,7 @@ def predict():
         
         class_index = int(np.argmax(pred))
         class_name = LABELS.get(class_index, "Unknown")
-        confidence = float(np.max(pred)).round(2) # redondear a 2 decimales
+        confidence = round(float(np.max(pred)), 2) # redondear a 2 decimales
 
         # Guardar
         new_prediction = Prediction(
