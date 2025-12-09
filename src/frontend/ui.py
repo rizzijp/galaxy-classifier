@@ -6,24 +6,16 @@ import os
 
 # Obtener la ruta absoluta del directorio donde está ESTE archivo (ui.py)
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# Construir la ruta a la imagen uniendo las partes
+# Rutas utilizadas en la aplicación
 image_path_banner = os.path.join(current_dir, "assets", "galaxy.jpg")
 image_path_metrics = os.path.join(current_dir, "assets", "metricas.png")
 image_path_confusion = os.path.join(current_dir, "assets", "matriz_confusion.png")
 music_path = os.path.join(current_dir, "assets", "sound.mp3")
 
-st.sidebar.header("🎵 Música de fondo")
-try:
-    with open(music_path, "rb") as f:
-        audio_bytes = f.read()
-    st.sidebar.audio(audio_bytes, format="audio/mp3")
-except FileNotFoundError:
-    st.sidebar.info("Archivo de música no encontrado. Cambia MUSIC_PATH o sube un archivo.")
-
-
 # Leer variable de entorno, si no existe usa localhost (para pruebas sin docker)
-#API_URL = os.getenv("API_URL", "http://localhost:5000")
-API_URL = "https://galaxy-classifier-api.onrender.com" # Para pruebas en local
+API_URL = os.getenv("API_URL", "http://localhost:5000")
+
+#API_URL = "https://galaxy-classifier-api.onrender.com" # Para pruebas en local
 
 
 
@@ -36,12 +28,12 @@ st.image(
     use_container_width=True
 )
 
-# Título superpuesto más arriba
+# Título
 st.markdown(
     """
     <h1 style="
         text-align: center;
-        margin-top: -120px;     /* súbelo más o menos según necesites */
+        margin-top: -120px;     
         color: white;
         text-shadow: 3px 3px 8px black;
         font-size: 3.2rem;
@@ -50,6 +42,20 @@ st.markdown(
     </h1>
     """,
     unsafe_allow_html=True)
+
+# --------------------------
+# MÚSICA DE FONDO
+# --------------------------
+
+st.sidebar.header("🎵 Música de fondo")
+try:
+    with open(music_path, "rb") as f:
+        audio_bytes = f.read()
+    st.sidebar.audio(audio_bytes, format="audio/mp3")
+except FileNotFoundError:
+    st.sidebar.info("Archivo de música no encontrado. Cambia music_path o sube un archivo.")
+
+
 # Crear pestañas
 tab1, tab2, tab3 = st.tabs(["Predicción", "Sobre el proyecto","Resultados del modelo"])
 
@@ -58,7 +64,7 @@ with tab1:
     st.write(
         """
         Esta aplicación permite clasificar imágenes de galaxias. Sube una imagen de una galaxia y 
-        el modelo predecirá su tipo con un nivel de confianza.
+        el modelo predecirá su tipo y elnivel de confianza.
         """
     )
     # ====================================================================
