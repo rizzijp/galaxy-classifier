@@ -42,8 +42,6 @@ El sistema sigue un flujo de datos desacoplado diseñado para producción:
 graph LR
     A[Usuario] -->|Sube Imagen| B(Frontend Streamlit)
     B -->|POST /predict| C{API Flask + TFLite}
-    C -->|Validación & Preproceso| C
-    C -->|Inferencia| C
     C -->|Persistencia| D[(PostgreSQL)]
     C -->|JSON| B
     B -->|Muestra Resultado| A
